@@ -12,8 +12,9 @@ import { Mention } from '@ckeditor/ckeditor5-mention';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { SelectAll } from '@ckeditor/ckeditor5-select-all';
 import { Undo } from '@ckeditor/ckeditor5-undo';
+import MentionCustomization from './mention-customize';
 declare class Editor extends ClassicEditor {
-    static builtinPlugins: (typeof AutoLink | typeof Bold | typeof Essentials | typeof Italic | typeof Link | typeof List | typeof ListProperties | typeof Mention | typeof Paragraph | typeof SelectAll | typeof Strikethrough | typeof Underline | typeof Undo)[];
+    static builtinPlugins: (typeof AutoLink | typeof Bold | typeof Essentials | typeof Italic | typeof Link | typeof List | typeof ListProperties | typeof Mention | typeof MentionCustomization | typeof Paragraph | typeof SelectAll | typeof Strikethrough | typeof Underline | typeof Undo)[];
     static defaultConfig: EditorConfig;
 }
 export default Editor;

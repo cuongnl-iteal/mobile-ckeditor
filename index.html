@@ -13,6 +13,35 @@
 <div id="editor"></div>
 
 <script>
+    let mentions = [];
+    // let mentions = [
+    //     {
+    //         id: 1,
+    //         name: 'Barney Stinson',
+    //         avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
+    //         link: 'https://www.imdb.com/title/tt0460649/characters/nm0000439',
+    //         text: '@Barney',
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Lily Aldrin',
+    //         avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
+    //         link: 'https://www.imdb.com/title/tt0460649/characters/nm0004989',
+    //         text: '@Lily',
+    //     }];
+
+    function setMentions(data) {
+        mentions = (data || [])
+            .filter(item => !!item)
+            .map(item => ({...item, userId: item.id, id: item.text}));
+    }
+
+    function setData(data) {
+        if (!window.editor) return;
+
+        window.editor.data.set(data);
+    }
+
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
@@ -20,15 +49,74 @@
                 feeds: [
                     {
                         marker: '@',
-                        feed: ['@Barney', '@Lily', '@Marry Ann', '@Marshall', '@Robin', '@Ted'],
-                        minimumCharacters: 0
+                        feed: getFeedItems,
+                        itemRenderer: customItemRenderer
                     }
                 ]
             }
         })
+        .then(editor => {
+            window.editor = editor;
+
+            editor.model.document.on('change:data', () => {
+                const customEvent = new CustomEvent('dataChange', {detail: editor.getData()});
+                window.dispatchEvent(customEvent);
+            });
+        })
         .catch(error => {
             console.error(error);
         });
+
+    function getFeedItems(term) {
+        if (!term || !mentions) return mentions;
+
+        const searchText = ignoreUnicode(term);
+
+        return mentions.filter(item => item && item.name && ignoreUnicode(item.name).includes(searchText)).slice(0, 10);
+    }
+
+    function customItemRenderer(item) {
+        const itemElement = document.createElement('div');
+        if (!item) return itemElement;
+
+        itemElement.classList.add('mce-mention-item');
+        itemElement.id = `mce-mention-item-id-${item.id}`;
+
+        const imageElement = document.createElement('img');
+        imageElement.classList.add('mce-mention-avatar');
+        imageElement.src = `${item.avatar}`;
+        itemElement.appendChild(imageElement);
+
+        const nameElement = document.createElement('div');
+        nameElement.classList.add('mce-mention-name');
+        nameElement.textContent = `${item.name}`;
+        itemElement.appendChild(nameElement);
+
+        return itemElement;
+    }
+
+    function ignoreUnicode(str, toLower = true) {
+        if (!str) return str;
+
+        str = str.trim();
+        if (toLower) str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+        str = str.replace(/đ/g, 'd');
+        str = str.replace(
+            /!|@|%|\^|\*|\(|\)|\+|=|<|>|\?|\/|,|\.|:|;|'|"|&|#|\[|\]|~|$|_/g,
+            '-'
+        );
+
+        str = str.replace(/-+-/g, '-');
+        str = str.replace(/^-+|-+$/g, '');
+
+        return str;
+    }
 </script>
 </body>
 

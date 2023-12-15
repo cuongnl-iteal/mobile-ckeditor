@@ -31,3 +31,26 @@ body {
     margin-block: 0;
     padding-inline-start: 1.5rem;
 }
+
+.ck-content .mention {
+    background-color: rgb(239, 246, 255) !important;
+    color: rgb(29, 78, 216) !important;
+    text-decoration: none;
+}
+
+.ck.ck-list__item .ck-button.ck-on {
+    background-color: #E0F1F2 !important;
+}
+
+.mce-mention-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mce-mention-item .mce-mention-avatar {
+    width: 2rem !important;
+    height: 2rem !important;;
+    object-fit: cover;
+    border-radius: 50%;
+}
