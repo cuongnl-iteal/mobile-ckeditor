@@ -4,18 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>My Website</title>
+  <title>Mobile Ckeditor</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
-<div id="editor">
-  <p>This is some sample content.</p>
-</div>
+<div id="editor"></div>
 
 <script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
+    ClassicEditor.create(
+        document.querySelector('#editor'),
+        {
+            mention: {
+                feeds: [
+                    {
+                        marker: '@',
+                        feed: ['@Barney', '@Lily', '@Marry Ann', '@Marshall', '@Robin', '@Ted'],
+                        minimumCharacters: 0
+                    }
+                ]
+            }
+        })
         .catch(error => {
             console.error(error);
         });
