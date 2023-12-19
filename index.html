@@ -42,6 +42,12 @@
         window.editor.data.set(data);
     }
 
+    function getData() {
+        if (!window.editor) return null;
+
+        return window.editor.getData();
+    }
+
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
@@ -59,8 +65,12 @@
             window.editor = editor;
 
             editor.model.document.on('change:data', () => {
-                const customEvent = new CustomEvent('dataChange', {detail: editor.getData()});
-                window.dispatchEvent(customEvent);
+                try {
+                    window.ReactNativeWebView.postMessage(editor.getData())
+                }
+                catch (e) {
+                    console.log(e)
+                }
             });
         })
         .catch(error => {
