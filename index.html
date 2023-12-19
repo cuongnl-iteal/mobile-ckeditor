@@ -66,11 +66,15 @@
 
             editor.model.document.on('change:data', () => {
                 try {
-                    window.ReactNativeWebView.postMessage(editor.getData())
+                    if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData())
                 }
                 catch (e) {
                     console.log(e)
                 }
+            });
+
+            editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
+                if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage('MobileCkeditor:onFocus' + value);
             });
         })
         .catch(error => {
