@@ -14,21 +14,21 @@
 
 <script>
     let mentions = [];
-    // let mentions = [
-    //     {
-    //         id: 1,
-    //         name: 'Barney Stinson',
-    //         avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
-    //         link: 'https://www.imdb.com/title/tt0460649/characters/nm0000439',
-    //         text: '@Barney',
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'Lily Aldrin',
-    //         avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
-    //         link: 'https://www.imdb.com/title/tt0460649/characters/nm0004989',
-    //         text: '@Lily',
-    //     }];
+    /*let mentions = [
+        {
+            id: 1,
+            name: 'Barney Stinson',
+            avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
+            link: 'https://www.imdb.com/title/tt0460649/characters/nm0000439',
+            text: '@Barney',
+        },
+        {
+            id: 2,
+            name: 'Lily Aldrin',
+            avatar: 'https://d353sipp6elw65.cloudfront.net/1000/small/5b887a46-a111-4870-acd2-90f3969c9313.png',
+            link: 'https://www.imdb.com/title/tt0460649/characters/nm0004989',
+            text: '@Lily',
+        }];*/
 
     function setMentions(data) {
         mentions = (data || [])
@@ -52,6 +52,7 @@
         document.querySelector('#editor'),
         {
             mention: {
+                dropdownLimit: Infinity,
                 feeds: [
                     {
                         marker: '@',
