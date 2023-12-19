@@ -20,26 +20,37 @@ body {
 
 .ck.ck-editor__editable_inline {
     height: calc(100% - 2px);
+    border: none;
+}
+
+.ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+    border: none;
+    box-shadow: none;
+}
+
+.ck.ck-toolbar {
+    border: none;
+    background-color: #f7f7f7;
 }
 
 .ck.ck-content p {
-    margin-block: 0;
+    margin-block: 0.125rem;
 }
 
 .ck.ck-content ul,
 .ck.ck-content ol {
-    margin-block: 0;
+    margin-block: 0.125rem;
     padding-inline-start: 1.5rem;
 }
 
 .ck-content .mention {
-    background-color: rgb(239, 246, 255) !important;
-    color: rgb(29, 78, 216) !important;
+    background-color: rgb(239, 246, 255);
+    color: rgb(29, 78, 216);
     text-decoration: none;
 }
 
 .ck.ck-list__item .ck-button.ck-on {
-    background-color: #E0F1F2 !important;
+    background-color: #E0F1F2;
 }
 
 .mce-mention-item {
@@ -49,8 +60,8 @@ body {
 }
 
 .mce-mention-item .mce-mention-avatar {
-    width: 2rem !important;
-    height: 2rem !important;;
+    width: 2rem;
+    height: 2rem;
     object-fit: cover;
     border-radius: 50%;
 }
