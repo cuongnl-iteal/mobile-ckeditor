@@ -33,7 +33,7 @@
     function setMentions(data) {
         mentions = (data || [])
             .filter(item => !!item)
-            .map(item => ({...item, userId: item.id, id: item.text}));
+            .map(item => ({...item, userId: item.id, id: item.text, avatar: item.avatar || 'user-default.png'}));
     }
 
     function setData(data) {

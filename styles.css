@@ -21,6 +21,7 @@ body {
 .ck.ck-editor__editable_inline {
     height: calc(100% - 2px);
     border: none;
+    padding: 0 1rem;
 }
 
 .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
@@ -34,12 +35,12 @@ body {
 }
 
 .ck.ck-content p {
-    margin-block: 0.125rem;
+    margin-block: 0.25rem;
 }
 
 .ck.ck-content ul,
 .ck.ck-content ol {
-    margin-block: 0.125rem;
+    margin-block: 0.25rem;
     padding-inline-start: 1.5rem;
 }
 
@@ -51,6 +52,10 @@ body {
 
 .ck.ck-list__item .ck-button.ck-on {
     background-color: #E0F1F2;
+}
+
+.ck.ck-mentions {
+    max-height: 200px;
 }
 
 .mce-mention-item {
