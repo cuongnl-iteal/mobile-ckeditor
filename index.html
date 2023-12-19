@@ -65,12 +65,7 @@
             window.editor = editor;
 
             editor.model.document.on('change:data', () => {
-                try {
-                    if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData())
-                }
-                catch (e) {
-                    console.log(e)
-                }
+                if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData())
             });
 
             editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
@@ -86,7 +81,7 @@
 
         const searchText = ignoreUnicode(term);
 
-        return mentions.filter(item => item && item.name && ignoreUnicode(item.name).includes(searchText)).slice(0, 10);
+        return mentions.filter(item => item && item.name && ignoreUnicode(item.name).includes(searchText));
     }
 
     function customItemRenderer(item) {
