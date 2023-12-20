@@ -49,17 +49,18 @@
     }
 
     function focusEditor() {
-        if (!window.editor) return null;
+        if (!window.editor) return;
 
         window.editor.editing.view.focus();
-        window.editor.model.change((writer) => {
-            writer.setSelection(writer.createPositionAt(window.editor.model.document.getRoot(), 'end'));
-        });
+        // window.editor.editing.model.change((writer) => {
+        //     writer.setSelection(writer.createPositionAt(window.editor.model.document.getRoot(), 'end'));
+        // });
     }
 
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
+            startupFocus: true,
             mention: {
                 dropdownLimit: Infinity,
                 feeds: [
