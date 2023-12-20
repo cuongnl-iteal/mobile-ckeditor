@@ -40,6 +40,7 @@
         if (!window.editor) return;
 
         window.editor.data.set(data);
+        window.editor.editing.view.focus();
     }
 
     function getData() {
