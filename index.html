@@ -51,6 +51,7 @@
     function focus() {
         if (!window.editor) return null;
 
+        window.editor.editing.view.focus();
         window.editor.model.change((writer) => {
             writer.setSelection(writer.createPositionAt(window.editor.model.document.getRoot(), 'end'));
         });
