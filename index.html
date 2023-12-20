@@ -48,6 +48,14 @@
         return window.editor.getData();
     }
 
+    function focus() {
+        if (!window.editor) return null;
+
+        window.editor.model.change((writer) => {
+            writer.setSelection(writer.createPositionAt(window.editor.model.document.getRoot(), 'end'));
+        });
+    }
+
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
