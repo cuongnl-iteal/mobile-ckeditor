@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mobile Ckeditor</title>
+  <title>Tictop Editor - Powered by VIG</title>
   <script src="ckeditor/ckeditor.js?v=0.0.1"></script>
   <link rel="stylesheet" href="styles.css?v=0.0.1">
 </head>
@@ -14,6 +14,7 @@
 
 <script>
     let mentions = [];
+
     /*let mentions = [
         {
             id: 1,
@@ -60,6 +61,7 @@
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
+            typing: {transformations: {include: []}},
             mention: {
                 dropdownLimit: Infinity,
                 feeds: [
@@ -76,6 +78,7 @@
 
             editor.model.document.on('change:data', () => {
                 if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData())
+                console.log('---editor.getData()', editor.getData());
             });
 
             editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
