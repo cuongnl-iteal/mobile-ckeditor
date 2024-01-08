@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Tictop Editor - Powered by VIG</title>
 <!--  <script src="ckeditor/ckeditor.js?v=0.0.1"></script>-->
-  <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
   <link rel="stylesheet" href="styles.css?v=0.0.1">
 </head>
 
@@ -61,7 +61,7 @@
     ClassicEditor.create(
         document.querySelector('#editor'),
         {
-            // typing: {transformations: {include: ['quotes']}},
+            toolbar: [ 'undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList' ],
             mention: {
                 dropdownLimit: Infinity,
                 feeds: [
