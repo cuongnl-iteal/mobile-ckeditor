@@ -46,7 +46,46 @@
     function getData() {
         if (!window.editor) return null;
 
-        return window.editor.getData()    }
+        return window.editor.getData()
+    }
+
+    function getDataMentions() {
+        const data = getData();
+        if (!data || !data.includes('<a') || !data.includes('</a>')) return null;
+
+        const el = document.createElement('html');
+        el.innerHTML = data;
+
+        let mentionUsers = Array.prototype.filter
+            .call(
+                el.getElementsByTagName('a'),
+                (link) =>
+                    link?.getAttribute('href') &&
+                    link?.getAttribute('data-mention') &&
+                    link?.getAttribute('userid') &&
+                    link?.getAttribute('data-type') === 'mention' &&
+                    link?.getAttribute('data-mention-group') === 'false'
+            )
+            .map((link) => link?.getAttribute('userid'));
+
+        mentionUsers = mentionUsers.filter((user, index) => mentionUsers.findIndex((u) => user === u) === index);
+
+        let mentionGroups = Array.prototype.filter
+            .call(
+                el.getElementsByTagName('a'),
+                (link) =>
+                    link?.getAttribute('href') &&
+                    link?.getAttribute('data-mention') &&
+                    link?.getAttribute('userid') &&
+                    link?.getAttribute('data-type') === 'mention' &&
+                    link?.getAttribute('data-mention-group') === 'true'
+            )
+            .map((link) => link?.getAttribute('userid'));
+
+        mentionGroups = mentionGroups.filter((user, index) => mentionGroups.findIndex((u) => user === u) === index);
+
+        return {mentionUsers, mentionGroups};
+    }
 
     function focusEditor() {
         if (!window.editor) return;
@@ -76,7 +115,6 @@
 
             editor.model.document.on('change:data', () => {
                 if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData())
-                console.log('---editor.getData()', editor.getData());
             });
 
             editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
@@ -137,6 +175,7 @@
 
         return str;
     }
+
 </script>
 </body>
 
