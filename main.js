@@ -93,7 +93,7 @@ ClassicEditor.create(document.querySelector('#editor'), editorConfig)
         editor.model.document.on('change:data', () => {
             if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(editor.getData());
 
-            _postDataMentions(editor.getData());
+            // _postDataMentions(editor.getData());
         });
 
         editor.editing.view.document.on('change:isFocused', (evt, name, value) => {
