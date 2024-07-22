@@ -5,34 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Fiine Editor - Powered by VIG</title>
-  <script type="module" src="main.js"></script>
+  <script src="build/ckeditor.js"></script>
+  <script type="module" src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 <div id="editor"></div>
-
-<script>
-    function setData(data) {
-        if (!window.editor) return;
-
-        window.editor.data.set(data);
-    }
-
-    function getData() {
-        if (!window.editor) return null;
-
-        return window.editor.getData()
-    }
-
-    function focusEditor() {
-        if (!window.editor) return;
-
-        window.editor.editing.view.focus();
-        window.editor.editing.model.change((writer) => {
-            writer.setSelection(writer.createPositionAt(window.editor.model.document.getRoot(), 'end'));
-        });
-    }
-</script>
 </body>
 
 </html>
